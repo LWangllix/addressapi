@@ -3,27 +3,27 @@ import Loading from "./Components/loading";
 import Content from "./Components/content";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-let apiAdressData = [];
 function App() {
-  const [loading, setLoading] = useState(true);
+  const [apiAdressData, setapiAdressData] = useState(null);
 
   useEffect(() => {
     const loadInitialData = async () => {
-      setLoading(true);
-
-      apiAdressData = await (
-        await fetch(
-          "https://random-data-api.com/api/address/random_address?size=100"
-        )
-      ).json();
-      console.log(apiAdressData);
-
-      setLoading(false);
+      setapiAdressData(
+        await (
+          await fetch(
+            "https://random-data-api.com/api/address/random_address?size=100"
+          )
+        ).json()
+      );
     };
     loadInitialData();
   }, []);
 
-  return <div>{loading ? <Loading /> : <Content data={apiAdressData} />}</div>;
+  return (
+    <div>
+      {apiAdressData == null ? <Loading /> : <Content data={apiAdressData} />}
+    </div>
+  );
 }
 
 export default App;
