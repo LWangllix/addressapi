@@ -25,22 +25,20 @@ export default function Content({ data }) {
     setDistance(data);
   };
 
+  const filterFunction = (data, textboxdata) => {
+    return data
+      .toString()
+      .toUpperCase()
+      .includes(textboxdata.toString().trim().toUpperCase());
+  };
+
   useEffect(() => {
     setfilteredArr(
-      (temp = temp.filter(
+      (temp.filter(
         (e) =>
-          e.city
-            .toString()
-            .toUpperCase()
-            .includes(City.toString().trim().toUpperCase()) &&
-          e.postcode
-            .toString()
-            .toUpperCase()
-            .includes(PostCode.toString().trim().toUpperCase()) &&
-          e.street_name
-            .toString()
-            .toUpperCase()
-            .includes(StreetName.toString().trim().toUpperCase())
+          filterFunction(e.city, City) &&
+          filterFunction(e.postcode, PostCode) &&
+          filterFunction(e.street_name, StreetName)
       ))
     );
 
